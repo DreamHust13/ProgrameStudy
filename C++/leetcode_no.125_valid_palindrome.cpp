@@ -13,6 +13,12 @@ For the purpose of this problem, we define empty string as valid palindrome.
 
 */
 
+#include "stdafx.h"
+#include <iostream>
+#include <string>
+#include <vector>
+using namespace std;
+
 class Solution
 {
 public:
@@ -24,7 +30,7 @@ public:
         auto start = s.begin();
         auto tail = s.end() - 1;
        
-        while(start <= tail)
+        while(start < tail)//注：!!!为start<tail,否则，对“ ”测试用例，会超出范围！！
         {
             while((start<s.end()) && !isalnum(*start))
                 start++;
@@ -43,4 +49,24 @@ public:
         return true;
     }
 };
+
+int main()
+{
+	//测试用例组
+	vector<string> testCol;
+
+	testCol.push_back("");
+	testCol.push_back(" ");//!!!之前忽略了
+	testCol.push_back("A man, a plan, a canal: Panama");
+	testCol.push_back("race a car");
+	testCol.push_back("2aa4");//!!!之前忽略了
+	
+	Solution sol;
+		
+	for(auto &temp : testCol)
+		{cout << temp << ":\t"
+			  <<(sol.isPalindrome(temp) ? "true" : "false")<<endl;
+	}
+	return 0;
+}
 
