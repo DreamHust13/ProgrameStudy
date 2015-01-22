@@ -5,6 +5,7 @@
 		行会按照升序输出。
 		
 	!!!看的并不够深刻，还有待再看再学习
+	C++ Primer ch12.3 p430
 */
 #include "stdafx.h"
 #include <string>
