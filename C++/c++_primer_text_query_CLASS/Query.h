@@ -55,6 +55,7 @@ private:
     std::shared_ptr<Query_base> q;
 };
 
+//输出运算符
 inline std::ostream &operator<<(std::ostream &os, const Query &query) 
 {
 	// Query::rep通过它的Query_base指针对rep进行了徐调用
