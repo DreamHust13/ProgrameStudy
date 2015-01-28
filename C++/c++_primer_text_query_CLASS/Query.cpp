@@ -73,20 +73,20 @@ AndQuery::eval(const TextQuery& text) const
     return QueryResult(rep(), ret_lines, left.get_file());
 }
 
-// returns the union of its operands' result sets
+// 返回运算对象查询结果set的并集
 QueryResult OrQuery::eval(const TextQuery& text) const
 {
-    // virtual calls through the Query members, lhs and rhs 
-	// the calls to eval return the QueryResult for each operand
+    // 通过Query成员lhs和rhs进行的虚调用
+	// 调用eval返回每个运算对象的QueryResult
     auto right = rhs.eval(text), left = lhs.eval(text);  
 
-	// copy the line numbers from the left-hand operand into the result set
+	// 将左侧运算对象的行号拷贝到结果set中
 	auto ret_lines = 
 	     make_shared<set<line_no>>(left.begin(), left.end());
 
-	// insert lines from the right-hand operand
+	// 插入右侧运算对象所得的行号
 	ret_lines->insert(right.begin(), right.end());
-	// return the new QueryResult representing the union of lhs and rhs
+	// 返回一个新的QueryResult，它表示lhs和rhs的并集
     return QueryResult(rep(), ret_lines, left.get_file());
 }
 
