@@ -79,28 +79,31 @@ inline Query::Query(const std::string &s): q(new WordQuery(s)) { }
 
 class NotQuery: public Query_base 
 {
+	//NotQuery所有成员都是私有的
     friend Query operator~(const Query &);
     NotQuery(const Query &q): query(q) { }
 
-    // concrete class: NotQuery defines all inherited pure virtual functions
+    // 具体的类: NotQuery将定义所有继承而来的纯虚函数
 	std::string rep() const {return "~(" + query.rep() + ")";}
     QueryResult eval(const TextQuery&) const;
     Query query;
 };
 
+
+//BinaryQuery也是一个抽象基类，它保存操作两个运算对象的查询类型所需的数据
 class BinaryQuery: public Query_base 
 {
 protected:
     BinaryQuery(const Query &l, const Query &r, std::string s): 
           lhs(l), rhs(r), opSym(s) { }
 
-    // abstract class: BinaryQuery doesn't define eval 
+    // 抽象类: BinaryQuery不定义eval，而是继承了该纯虚函数
 	std::string rep() const { return "(" + lhs.rep() + " " 
 	                                     + opSym + " " 
 		                                 + rhs.rep() + ")"; }
 
-    Query lhs, rhs;    // right- and left-hand operands
-    std::string opSym; // name of the operator
+    Query lhs, rhs;    // 左侧和右侧运算对象
+    std::string opSym; // 运算符的名字
 };
     
 class AndQuery: public BinaryQuery 
@@ -110,7 +113,7 @@ class AndQuery: public BinaryQuery
     AndQuery(const Query &left, const Query &right): 
                         BinaryQuery(left, right, "&") { }
 
-    // concrete class: AndQuery inherits rep and defines the remaining pure virtual
+    // 具体的类: AndQuery继承了rep并且定义了其他纯虚函数：eval
     QueryResult eval(const TextQuery&) const;
 };
 
