@@ -88,5 +88,10 @@ QueryResult OrQuery::eval(const TextQuery& text) const
 	ret_lines->insert(right.begin(), right.end());
 	// 返回一个新的QueryResult，它表示lhs和rhs的并集
     return QueryResult(rep(), ret_lines, left.get_file());
+	
+	/*
+	 * QueryResult的构造函数接收三个实参：一个表示查询的string、一个指向匹配行号set的shared_ptr
+										  和一个指向输入文件vector的shared_ptr
+	*/
 }
 
