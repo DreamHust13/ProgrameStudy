@@ -28,29 +28,28 @@ using std::inserter;
 		NotQuery的更复杂些：需要返回运算对象没有出现的文本行
 */
 
-// returns the lines not in its operand's result set
-QueryResult
-NotQuery::eval(const TextQuery& text) const
+// 返回运算对象查询结果set中不存在的行
+QueryResult NotQuery::eval(const TextQuery& text) const
 {
-    // virtual call to eval through the Query operand 
+    // 通过Query运算对象对eval进行虚调用
     auto result = query.eval(text);
 
-	// start out with an empty result set
+	// 开始时结果set为空
     auto ret_lines = make_shared<set<line_no>>();
 
-	// we have to iterate through the lines on which our operand appears
+	// 必须在运算对象出现的所有行中进行迭代
 	auto beg = result.begin(), end = result.end();
 
-    // for each line in the input file, if that line is not in result,
-    // add that line number to ret_lines
+    // 对于输入文件的每一行，若该行不在result当中，则将其添加到ret_lines
 	auto sz = result.get_file()->size();
-    for (size_t n = 0; n != sz; ++n) {
-		// if we haven't processed all the lines in result
-		// check whether this line is present
+    for (size_t n = 0; n != sz; ++n) 
+	{
+		// 若没有处理完result的所有行
+		// 检查当前行是否存在：基于遍历对象是set，行号按升序排列
 		if (beg == end || *beg != n) 
-			ret_lines->insert(n);  // if not in result, add this line 
+			ret_lines->insert(n);  // 若不在result当中，添加这一行
 		else if (beg != end) 
-			++beg; // otherwise get the next line number in result if there is one
+			++beg; // 否则继续获取result的下一行（如果有的话）
 	}
 	return QueryResult(rep(), ret_lines, result.get_file());
 }
