@@ -62,16 +62,17 @@ inline std::ostream &operator<<(std::ostream &os, const Query &query)
 	return os << query.rep(); 
 }
 
+//WordQuery查找一个给定的string，它是在给定的TextQuery对象上实际执行查询的唯一一个操作
 class WordQuery: public Query_base 
 {
-    friend class Query; // Query uses the WordQuery constructor
+    friend class Query; // 使用WordQuery构造函数
     WordQuery(const std::string &s): query_word(s) { }
 
-    // concrete class: WordQuery defines all inherited pure virtual functions
+    // 具体的类: WordQuery将定义所有继承而来的纯虚函数-->eval调用其TextQuery参数的query成员，由query成员在文件中实际进行查找
     QueryResult eval(const TextQuery &t) const
                      { return t.query(query_word); }
 	std::string rep() const { return query_word; }
-    std::string query_word;   // word for which to search 
+    std::string query_word;   // 要查找的单词 
 };
 
 inline Query::Query(const std::string &s): q(new WordQuery(s)) { }
