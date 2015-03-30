@@ -1,6 +1,8 @@
 #include "stdafx.h"
 #include <stdio.h>
-
+/*
+	8进制中1的个数
+*/
 static long long prim_poly[33] =
 {
 	0,
