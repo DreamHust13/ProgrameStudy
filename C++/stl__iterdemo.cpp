@@ -1,5 +1,5 @@
-/*
-STL 中指针迭代器的使用
+﻿/*
+STL 学习之指针迭代器的使用
 */
 #include "stdafx.h"
 #include <iostream>
