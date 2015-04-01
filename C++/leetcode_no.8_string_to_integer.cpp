@@ -15,7 +15,7 @@
 	If the first sequence of non-whitespace characters in str is not a valid integral number, or if no such sequence exists because either str is empty or it contains only whitespace characters, no conversion is performed.
 
 	If no valid conversion could be performed, a zero value is returned. If the correct value is out of the range of representable values, INT_MAX (2147483647) or INT_MIN (-2147483648) is returned.
-	
+
 	//审题：atoi，返回int型（想多了）
 	//考虑情况：+、-、是否合法
 	如果传的字符串指针为NULL；
@@ -24,7 +24,7 @@
 	如果传的字符串中包含+-符号；
 	如果字符串代表的整数超过了整数能表示的范围
 	只有一个+或-，也是非法的
-忽略前面的空白"   98"
+	忽略前面的空白"   98"
 */
 
 #include "stdafx.h"
@@ -102,13 +102,15 @@ public:
 			}
 			else
 			{
+				isLegal = false;//表示含非法部分
+				break;//！！！返回可转换部分
 				//	if(*p=='.' && !isDecimal)
 				//	{
 				//		isDecimal=true;
 				//	}
 				//	else
 				//	{
-				break;//！！！返回可转换部分
+				
 				//	isLegal = false;
 				//	return 0;
 
@@ -135,7 +137,5 @@ int main()
 	//边界：“-2147483647”“-2147483648”“2147483647”
 	//无效格式：“++c”、“++1”
 	//溢出数据“2147483648”“9223372036854775809”
-
-
 
 }
